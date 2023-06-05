@@ -34,7 +34,7 @@ class FileController(
             )
 
             //Save file to disk
-            fileRepository.save(fileEntity)
+            fileRepository.Save(fileEntity)
 
             return ResponseEntity(
                 mapOf(
@@ -44,8 +44,9 @@ class FileController(
             )
 
         }
-        catch(Exception e) {
-            throw BadRequestException(e.message)
+        catch(Exception ex) {
+            ExceptionLogItem("An Exception has been occured", ex)
+            throw BadRequestException(ex.message)
         }
         
     }
@@ -53,7 +54,7 @@ class FileController(
     @PostMapping("/metas")
     fun getFileMetadata(@RequestBody tokens: List<String>): FileMetadataResponseEntity<Map<String, FileMetadataResponse.FileMetadata>> {
         
-        val files = fileRepository.findAllById(tokens)
+        val files = fileRepository.findAllById(tokens) ?: throw NotFoundException("Files Not Found")
         
         val metadata = files.associateBy(
             keySelector = { it.token },
@@ -81,6 +82,7 @@ class FileController(
         val filePath = "$fileUploadDirectory/$token"
         val file = File(filePath)
         if (!file.exists()) {
+            Logger(LogItem("File not found"))
             throw NotFoundException("File not found")
         }
 
@@ -101,6 +103,7 @@ class FileController(
         val filePath = "$fileUploadDirectory/$token"
         val file = File(filePath)
         if (!file.exists()) {
+            Logger(LogItem("File not found"))
             throw NotFoundException("File not found")
         }
 
