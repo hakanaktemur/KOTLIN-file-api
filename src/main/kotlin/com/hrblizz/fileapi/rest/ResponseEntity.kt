@@ -1,6 +1,6 @@
 package com.hrblizz.fileapi.rest
 
-class ResponseEntity<T> {
+open class ResponseEntity<T> {
     var data: T? = null
 
     var errors: List<ErrorMessage>? = null
