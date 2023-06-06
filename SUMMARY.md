@@ -20,5 +20,7 @@
 
 - At ApiAuthenticationEntryPoint >>>> Instead of manually closing the response writer using writer.close(), you can use try-with-resources to automatically close the writer after writing the response. This ensures proper resource handling
 
+- Removed the unnecessary constructor keyword from the class declaration.
+
 
 

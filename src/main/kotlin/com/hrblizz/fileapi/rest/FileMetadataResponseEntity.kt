@@ -1,8 +1,11 @@
 package com.hrblizz.fileapi.rest
 
+import org.springframework.http.HttpStatus
+import java.net.http.HttpClient
+
 class FileMetadataResponseEntity(
     val files: Map<String, FileMetadata>
-) : ResponseEntity<Map<String, FileMetadata>> {
+) : ResponseEntity<Map<String, FileMetadataResponseEntity.FileMetadata>>(files, status = HttpStatus.OK.value()) {
     data class FileMetadata(
         val token: String,
         val filename: String,

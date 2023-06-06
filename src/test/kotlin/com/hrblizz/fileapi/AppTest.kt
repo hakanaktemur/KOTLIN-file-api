@@ -1,7 +1,22 @@
 package com.hrblizz.fileapi
 
-import org.junit.jupiter.api.Assertions.assertTrue
+import com.hrblizz.fileapi.controller.FileController
+import com.hrblizz.fileapi.data.repository.FileRepository
+import com.hrblizz.fileapi.rest.FileEntity
+import com.hrblizz.fileapi.rest.FileUploadRequest
+import javafx.beans.binding.Bindings.`when`
+import jdk.internal.org.objectweb.asm.util.CheckClassAdapter.verify
+import jdk.internal.vm.compiler.word.LocationIdentity.any
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.boot.context.properties.bind.Bindable.listOf
+import org.springframework.boot.context.properties.bind.Bindable.mapOf
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import java.time.LocalDateTime
+import java.util.*
+import javax.management.Query.times
 
 /**
  * Unit test for simple App.
@@ -70,7 +85,7 @@ class AppTest {
             createTime = LocalDateTime.now(),
             meta = mapOf("creatorEmployeeId" to "2")
         )
-        `when`(fileRepository.findByTokenIn(tokens)).thenReturn(listOf(fileEntity1, fileEntity2))
+        `when`(fileRepository.findAllById(tokens)).then(listOf(fileEntity1, fileEntity2))
 
         val response = fileController.getFileMetadata(tokens)
 

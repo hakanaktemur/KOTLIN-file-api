@@ -1,5 +1,7 @@
 package com.hrblizz.fileapi
 
+import com.hrblizz.fileapi.controller.FileController
+import com.hrblizz.fileapi.data.repository.FileRepository
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
